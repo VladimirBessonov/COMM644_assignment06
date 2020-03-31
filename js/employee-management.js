@@ -6,7 +6,6 @@ let observe = (obj, fn) => new Proxy(obj, {
     set(obj, key, val) {
         obj[key] = val;
         fn(obj)
-        // createTableBody(EmployeeList)
         return true
         }
     }
@@ -20,18 +19,35 @@ arr = observe(EmployeeList, arr => {
 
 
 function createTableBody (arr) {
-    for (i =0; i < arr.length; i++) {
-        console.log(arr[i])
-        var tr = document.createElement("tr");
-        for (j =0; j < arr[i].length; j++) {
-            console.log(arr[i][j])
-            var td = document.createElement("td");
-            td.innerText = arr[i][j]
+    let tableBody = document.getElementById('tb')
+    console.log(tableBody)
+    console.log(arr)
+    for (row of arr) {
+        let tr = document.createElement("tr");
+        for (cell in row) {
+            let td = document.createElement("td");
+            td.innerText = row[cell]
+            console.log(cell, row[cell])
             tr.appendChild(td);
         }
-        tableBody[0].appendChild(tr)
+        console.log('row ',row)
+        tableBody.appendChild(tr)
     }
-    console.log(tableBody[0])
+
+    // for (i =0; i < arr.length; i++) {
+    //     console.log(arr[i])
+    //     let tr = document.createElement("tr");
+    //     for (j =0; j < arr[i].length; j++) {
+    //         console.log(arr[i][j])
+    //         let td = document.createElement("td");
+    //         td.innerText = arr[i][j]
+    //         console.log('cell',td)
+    //         tr.appendChild(td);
+    //     }
+    //     console.log('row',tr)
+    //     tableBody.appendChild(tr)
+    // }
+
 }
 
 $(document).ready(function(){
