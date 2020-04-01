@@ -11,32 +11,43 @@ let observe = (obj, fn) => new Proxy(obj, {
 
 arr = observe(EmployeeList, arr => {
     console.log('arr changed! ', arr)
+    countEmployees(arr)
     createTableBody(arr)
-});
 
+});
+arr.pop()
 function createTableBody (arr) {
 
     let tableBody = document.getElementById('tb')
-    tableBody.innerHTML = '';
-    for (row of arr) {
-        let tr = document.createElement("tr");
-        for (cell in row) {
-            let td = document.createElement("td");
-            td.innerText = Object.values(row[cell])
-            tr.appendChild(td);
-        }
-        let btn1 = document.createRange().createContextualFragment('<td><button class="btn btn-primary">Edit</button></td>').firstElementChild
-        let btn2 = document.createRange().createContextualFragment('<td><button class="btn btn-danger">Delete</button></td>').firstElementChild
-        let td1 = document.createElement("td")
-        let td2 = document.createElement("td")
-        td1.appendChild(btn1);
-        td2.appendChild(btn2);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tableBody.appendChild(tr)
+    if (tableBody) {
+        tableBody.innerHTML = '';
+        for (row of arr) {
+            let tr = document.createElement("tr");
+            for (cell in row) {
+                let td = document.createElement("td");
+                td.innerText = Object.values(row[cell])
+                tr.appendChild(td);
+            }
+            // let btn1 = document.createRange().createContextualFragment('<td><button name="Edit" class="btn btn-primary">Edit</button></td>').firstElementChild
+            let btn2 = document.createRange().createContextualFragment('<td><button name="Delete" class="btn btn-danger">Delete</button></td>').firstElementChild
+            // let td1 = document.createElement("td")
+            let td2 = document.createElement("td")
+            // td1.appendChild(btn1);
+            td2.appendChild(btn2);
+            // tr.appendChild(td1);
+            tr.appendChild(td2);
+            tableBody.appendChild(tr)
 
+        }
     }
 
+}
+
+function countEmployees (arr) {
+    let length = arr.length;
+    $('h2 span').text(length)
+    console.log('count was called')
+    console.log(length)
 }
 
 $(document).ready(function(){
@@ -78,16 +89,23 @@ $(document).ready(function(){
 
     })
     $('.employees').click( function (event) {
-        const { target, currentTarget } = event;
+        const { target } = event;
         let tableBody = document.getElementById('tb')
         if (target.matches('button')) {
-            let row = target.parentElement.parentElement
-            let index = Array.prototype.indexOf.call(tableBody.children, row);
-            // tableBody.innerHTML = '';
-            arr.splice(index,1)
-            console.log('button ')
-            if ($(event.target).has('.btn-danger')) {
+
+            if ( target.name == 'Delete') {
+                let row = target.parentElement.parentElement
+                let index = Array.prototype.indexOf.call(tableBody.children, row);
+                arr.splice(index,1)
+
             }
+            if ( target.name == 'Edit') {
+                let row = target.parentElement.parentElement
+                let index = Array.prototype.indexOf.call(tableBody.children, row);
+                // arr.splice(index,1)
+                console.log('function not ready yet')
+            }
+
 
         }
         if (target.matches('td')) {

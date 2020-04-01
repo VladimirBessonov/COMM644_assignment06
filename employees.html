@@ -24,17 +24,17 @@
 <div class="container">
     <form id="newEmployee">
         <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name"><br>
+        <input type="text" id="name" name="name"><span></span><br>
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title"><br>
+        <input type="text" id="title" name="title"><span></span><br>
         <label for="ext">Extension:</label><br>
-        <input type="text" id="ext" name="ext"><br><br>
+        <input type="text" id="ext" name="ext"><span></span><br><br>
         <input id="submit" type="submit" value="Add" class="btn btn-primary">
     </form>
 </div>
 
 <div class="container">
-    <h2>Number of employees: </h2>
+    <h2>Number of employees: <span></span></h2>
     <p>Edditable table</p>
     <table class="table table-striped">
         <thead>
@@ -42,32 +42,32 @@
             <th>Name</th>
             <th>Title</th>
             <th>Extension</th>
-            <th>Edit</th>
+<!--            <th>Edit</th>-->
             <th>Delete</th>
         </tr>
         </thead>
-        <tbody class="employees">
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
-            <td><button id='id' class="btn btn-primary">Edit</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-            <td><button class="btn btn-primary">Edit</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-            <td><button class="btn btn-primary">Edit</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
-        </tr>
+        <tbody class="employees" id="tb">
+<!--        <tr>-->
+<!--            <td>John</td>-->
+<!--            <td>Doe</td>-->
+<!--            <td>john@example.com</td>-->
+<!--            <td><button id='id' class="btn btn-primary">Edit</button></td>-->
+<!--            <td><button class="btn btn-danger">Delete</button></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>Mary</td>-->
+<!--            <td>Moe</td>-->
+<!--            <td>mary@example.com</td>-->
+<!--            <td><button class="btn btn-primary">Edit</button></td>-->
+<!--            <td><button class="btn btn-danger">Delete</button></td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>July</td>-->
+<!--            <td>Dooley</td>-->
+<!--            <td>july@example.com</td>-->
+<!--            <td><button class="btn btn-primary">Edit</button></td>-->
+<!--            <td><button class="btn btn-danger">Delete</button></td>-->
+<!--        </tr>-->
         </tbody>
     </table>
 </div>
