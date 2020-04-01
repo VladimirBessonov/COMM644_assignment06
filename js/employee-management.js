@@ -1,5 +1,6 @@
 var EmployeeList = [];
 
+
 let observe = (obj, fn) => new Proxy(obj, {
     set(obj, key, val) {
         obj[key] = val;
@@ -15,7 +16,7 @@ arr = observe(EmployeeList, arr => {
     createTableBody(arr)
 
 });
-arr.pop()
+
 function createTableBody (arr) {
 
     let tableBody = document.getElementById('tb')
@@ -51,6 +52,8 @@ function countEmployees (arr) {
 }
 
 $(document).ready(function(){
+    $('h2 span').text('0')
+    arr.push({name: 'Vladimir Bessonov', title: 'Software Engineer', ext: '123456'})
 
     $('#newEmployee').submit( function (event) {
         event.preventDefault()
