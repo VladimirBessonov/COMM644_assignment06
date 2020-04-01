@@ -1,7 +1,5 @@
 var EmployeeList = [];
 
-var tableBody = document.getElementsByTagName('tbody')
-
 let observe = (obj, fn) => new Proxy(obj, {
     set(obj, key, val) {
         obj[key] = val;
@@ -12,41 +10,32 @@ let observe = (obj, fn) => new Proxy(obj, {
 );
 
 arr = observe(EmployeeList, arr => {
-    // console.log('arr changed! ', arr)
+    console.log('arr changed! ', arr)
     createTableBody(arr)
-    console.log('in proxi call')
 });
 
-
 function createTableBody (arr) {
+
     let tableBody = document.getElementById('tb')
-    console.log(tableBody)
-    console.log(arr)
+    tableBody.innerHTML = '';
     for (row of arr) {
         let tr = document.createElement("tr");
         for (cell in row) {
             let td = document.createElement("td");
-            td.innerText = row[cell]
-            console.log(cell, row[cell])
+            td.innerText = Object.values(row[cell])
             tr.appendChild(td);
         }
-        console.log('row ',row)
+        let btn1 = document.createRange().createContextualFragment('<td><button class="btn btn-primary">Edit</button></td>').firstElementChild
+        let btn2 = document.createRange().createContextualFragment('<td><button class="btn btn-danger">Delete</button></td>').firstElementChild
+        let td1 = document.createElement("td")
+        let td2 = document.createElement("td")
+        td1.appendChild(btn1);
+        td2.appendChild(btn2);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
         tableBody.appendChild(tr)
-    }
 
-    // for (i =0; i < arr.length; i++) {
-    //     console.log(arr[i])
-    //     let tr = document.createElement("tr");
-    //     for (j =0; j < arr[i].length; j++) {
-    //         console.log(arr[i][j])
-    //         let td = document.createElement("td");
-    //         td.innerText = arr[i][j]
-    //         console.log('cell',td)
-    //         tr.appendChild(td);
-    //     }
-    //     console.log('row',tr)
-    //     tableBody.appendChild(tr)
-    // }
+    }
 
 }
 
@@ -85,17 +74,24 @@ $(document).ready(function(){
             $("#ext").next().text("");
             $("#ext").val("");
             $("#ext").attr('style', '');
-            console.log(EmployeeList)
         }
 
     })
     $('.employees').click( function (event) {
-        const { target } = event;
+        const { target, currentTarget } = event;
+        let tableBody = document.getElementById('tb')
         if (target.matches('button')) {
-            console.log('button is clicked')
+            let row = target.parentElement.parentElement
+            let index = Array.prototype.indexOf.call(tableBody.children, row);
+            // tableBody.innerHTML = '';
+            arr.splice(index,1)
+            console.log('button ')
+            if ($(event.target).has('.btn-danger')) {
+            }
+
         }
         if (target.matches('td')) {
-            console.log('td clicked')
+            // console.log('td clicked')
         }
 
     })
