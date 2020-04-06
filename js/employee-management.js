@@ -36,9 +36,10 @@ $(document).ready(function(){
                     td.appendChild(input)
                     tr.appendChild(td);
                 }
-                let btn1 = document.createRange().createContextualFragment('<td><button name="Edit" class="btn btn-primary">Edit</button></td>').firstElementChild
-                let btn2 = document.createRange().createContextualFragment('<td><button name="Delete" class="btn btn-danger">Delete</button></td>').firstElementChild
+                // no idea why createRange cannot creete <td><button>, <td><button><button/><tb/> will produce only <button><button/>
+                let btn1 = document.createRange().createContextualFragment('<button name="Edit" class="btn btn-primary">Edit</button>')
                 let td1 = document.createElement("td")
+                let btn2 = document.createRange().createContextualFragment('<button name="Delete" class="btn btn-danger">Delete</button>')
                 let td2 = document.createElement("td")
                 td1.appendChild(btn1);
                 td2.appendChild(btn2);
@@ -129,18 +130,18 @@ $(document).ready(function(){
                 let inputs = trows[index].querySelectorAll('input')
                 let validInputs = true
                 inputs.forEach( el => {
-                    console.log(el)
+
                     if (el.value == '') {
                         validInputs = false
                     }
                 })
-                console.log('inputs valid? ',validInputs)
+
                 if (validInputs) {
                     inputs.forEach( el => el.disabled = true)
                     target.textContent = 'Edit'
                     target.name = 'Edit'
                     arr[index] = {name : {name: inputs[0].value}, title: {title: inputs[1].value}, ext : {ext: inputs[2].value}}
-                    console.log(target.name)
+
                 }
 
 
