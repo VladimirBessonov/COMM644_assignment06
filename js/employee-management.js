@@ -1,44 +1,28 @@
 $(document).ready(function(){
 
-    // create observed object
-    var EmployeeList = [];
+    // create TARGET object for PROXY
+    const storageItem = 'employee'
+    var EmployeeList = JSON.parse(localStorage.getItem(storageItem)) || [];
 
     let observe = (obj, fn) => new Proxy(obj, {
             set(obj, key, val) {
                 obj[key] = val;
-                fn(obj)
-                return true
-            }
-        }
-    );
-    let observe1 = (obj, fn) => new Proxy(obj, {
-
-            set(obj, key, val) {
-
-                obj[key] = val;
+                let _temp = JSON.stringify(obj)
+                localStorage.setItem(storageItem, _temp)
                 fn(obj)
                 return true
             }
         }
     );
 
-    arr = observe(EmployeeList, arr => {
+    let arr = observe(EmployeeList, arr => {
         countEmployees(arr)
         createTableBody(arr)
-        console.log(arr)
-    });
-    arr1 = observe(EmployeeList, arr => {
-
-        countEmployees(arr)
-        createTableBody(arr)
-        console.log(arr)
     });
 
 // create table - iterate EmployeeList and create table rows
     function createTableBody (arr) {
-
         let tableBody = document.getElementById('tb')
-        // if (tableBody.childElementCount !==0 ) {
             tableBody.innerHTML = '';
 
         arr.forEach( item => {
@@ -63,7 +47,6 @@ $(document).ready(function(){
             tableBody.appendChild(tr)
 
         })
-
     }
 
  // count number of employees in the list
@@ -108,7 +91,6 @@ $(document).ready(function(){
         // if (status.isValid == true)
         if (status == true)
         {
-            console.log({name, title, ext})
             arr.push({name, title, ext})
             $("#name").next().text("");
             $("#name").val("");
